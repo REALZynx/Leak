@@ -1,3 +1,5 @@
+print("6A6 Hub IS COMING BOII!!, ALSO DO MY KEYSYSTEM I NEEDD TO REVENGE TO MY GF")
+
 Library = {}
 
 local function Tw(info)
