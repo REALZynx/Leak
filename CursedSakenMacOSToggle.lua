@@ -313,7 +313,7 @@ function Library.CreateWindow(title,subtitle,size,version)
 	self.Search.BackgroundTransparency =  self.Theme.dbtntran
 	self.Search.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	self.Search.BorderSizePixel = 0
-	self.Search.Position = UDim2.new(0.570, 0, 0.19, 0)
+	self.Search.Position = UDim2.new(1, -150, 0.19, 0)
 	self.Search.Size = UDim2.new(0, 140, 0, 26)
 	self.Search.Parent = self.Header
 
@@ -363,41 +363,37 @@ function Library.CreateWindow(title,subtitle,size,version)
 	local subtitlesize = labelsize(subtitle)
 
 	self.TextLabel = Instance.new("TextLabel")
-	self.TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	self.TextLabel.BackgroundTransparency = 1.000
-	self.TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	self.TextLabel.BorderSizePixel = 0
-	self.TextLabel.Position = UDim2.new(0.02, 0, 0, -1)
-	self.TextLabel.AutomaticSize = Enum.AutomaticSize.X
-    self.TextLabel.Size = UDim2.new(0,0,0,40)
-	self.TextLabel.Font = Enum.Font.GothamBold
-	self.TextLabel.Text = title
-	self.TextLabel.TextColor3 = self.Theme.TextColor
-	self.TextLabel.TextSize = 16.000
-	self.TextLabel.TextWrapped = false
-    self.TextLabel.TextScaled = false
-    self.TextLabel.TextTruncate = Enum.TextTruncate.AtEnd
-	self.TextLabel.TextXAlignment = Enum.TextXAlignment.Left
-	self.TextLabel.Parent = self.Header
+self.TextLabel.BackgroundTransparency = 1
+self.TextLabel.BorderSizePixel = 0
+self.TextLabel.Position = UDim2.new(0, 100, 0, 0)   -- <-- geser kanan dari 0.02 scale
+self.TextLabel.AutomaticSize = Enum.AutomaticSize.X
+self.TextLabel.Size = UDim2.new(0, 0, 0, 40)
+self.TextLabel.Font = Enum.Font.GothamBold
+self.TextLabel.Text = title
+self.TextLabel.TextColor3 = self.Theme.TextColor
+self.TextLabel.TextSize = 16
+self.TextLabel.TextWrapped = false
+self.TextLabel.TextScaled = false
+self.TextLabel.TextTruncate = Enum.TextTruncate.AtEnd
+self.TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+self.TextLabel.Parent = self.Header
 
 	local positionsubt = self.TextLabel.Position.X.Scale
 	local sizetitle = self.TextLabel.Size.X.Offset
 
-	local trueposition = self.TextLabel.AbsoluteSize.X + 15
+	local trueposition = 100 + self.TextLabel.AbsoluteSize.X + 10
 
-	self.TextLabel_2 = Instance.new("TextLabel")
-	self.TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	self.TextLabel_2.BackgroundTransparency = 1.000
-	self.TextLabel_2.BorderColor3 = Color3.fromRGB(59, 59, 59)
-	self.TextLabel_2.BorderSizePixel = 0
-	self.TextLabel_2.Position = UDim2.new(0, trueposition, 0.05, -1)
-	self.TextLabel_2.Size = UDim2.new(0, subtitlesize, 0, 40)
-	self.TextLabel_2.Font = Enum.Font.Gotham
-	self.TextLabel_2.Text = subtitle
-	self.TextLabel_2.TextColor3 = self.Theme.SubTtitleTextColor
-	self.TextLabel_2.TextSize = 12.000
-	self.TextLabel_2.TextXAlignment = Enum.TextXAlignment.Left
-	self.TextLabel_2.Parent = self.Header
+self.TextLabel_2 = Instance.new("TextLabel")
+self.TextLabel_2.BackgroundTransparency = 1
+self.TextLabel_2.BorderSizePixel = 0
+self.TextLabel_2.Position = UDim2.new(0, trueposition, 0.05, -1)
+self.TextLabel_2.Size = UDim2.new(0, subtitlesize, 0, 40)
+self.TextLabel_2.Font = Enum.Font.Gotham
+self.TextLabel_2.Text = subtitle
+self.TextLabel_2.TextColor3 = self.Theme.SubTtitleTextColor
+self.TextLabel_2.TextSize = 12
+self.TextLabel_2.TextXAlignment = Enum.TextXAlignment.Left
+self.TextLabel_2.Parent = self.Header
 
 	if version then
 		self.version = Instance.new("Frame")
@@ -415,8 +411,8 @@ function Library.CreateWindow(title,subtitle,size,version)
 local TrafficLight = Instance.new("Frame")
 TrafficLight.Name = "TrafficLight"
 TrafficLight.BackgroundTransparency = 1
-TrafficLight.Position = UDim2.new(0.02, 0, 0.18, 0)
-TrafficLight.Size = UDim2.new(0, 72, 0, 24)
+TrafficLight.Position = UDim2.new(0, 10, 0.5, -7)   -- kiri header, tengah vertikal
+TrafficLight.Size = UDim2.new(0, 72, 0, 14)
 TrafficLight.Parent = self.Header
 
 local TLLayout = Instance.new("UIListLayout")
@@ -426,7 +422,6 @@ TLLayout.Padding = UDim.new(0, 7)
 TLLayout.SortOrder = Enum.SortOrder.LayoutOrder
 TLLayout.Parent = TrafficLight
 
--- Helper: buat satu traffic light dot
 local function makeDot(name, color, order)
     local dot = Instance.new("Frame")
     dot.Name = name
@@ -439,14 +434,12 @@ local function makeDot(name, color, order)
     c.CornerRadius = UDim.new(1, 0)
     c.Parent = dot
 
-    -- stroke tipis biar keliatan di background terang
     local stroke = Instance.new("UIStroke")
     stroke.Color = Color3.fromRGB(0, 0, 0)
     stroke.Transparency = 0.82
     stroke.Thickness = 1
     stroke.Parent = dot
 
-    -- icon kecil di tengah (muncul saat hover)
     local icon = Instance.new("TextLabel")
     icon.Name = "Icon"
     icon.BackgroundTransparency = 1
@@ -455,11 +448,10 @@ local function makeDot(name, color, order)
     icon.Font = Enum.Font.GothamBold
     icon.TextSize = 9
     icon.TextColor3 = Color3.fromRGB(80, 20, 10)
-    icon.TextTransparency = 1  -- hidden by default
-    icon.Text = "âœ•"
+    icon.TextTransparency = 1
+    icon.Text = "✕"
     icon.Parent = dot
 
-    -- hitbox button
     local btn = Instance.new("TextButton")
     btn.Name = "Btn"
     btn.Size = UDim2.new(1, 4, 1, 4)
@@ -473,54 +465,33 @@ local function makeDot(name, color, order)
     return dot, btn, icon
 end
 
--- ðŸ”´ Merah = Destroy/Close
-local redDot, redBtn, redIcon = makeDot("RedDot", Color3.fromRGB(255, 96, 89), 1)
-redIcon.Text = "âœ•"
-redIcon.TextColor3 = Color3.fromRGB(100, 20, 10)
+local redDot,    redBtn,    redIcon    = makeDot("RedDot",    Color3.fromRGB(255, 96,  89),  1)
+local orangeDot, orangeBtn, orangeIcon = makeDot("OrangeDot", Color3.fromRGB(255, 189, 68),  2)
+local greenDot,  greenBtn,  greenIcon  = makeDot("GreenDot",  Color3.fromRGB(40,  201, 64),  3)
 
--- ðŸŸ  Oranye = Minimize/Column
-local orangeDot, orangeBtn, orangeIcon = makeDot("OrangeDot", Color3.fromRGB(255, 189, 68), 2)
-orangeIcon.Text = "â€“"
-orangeIcon.TextColor3 = Color3.fromRGB(100, 60, 0)
+redIcon.Text    = "✕" ; redIcon.TextColor3    = Color3.fromRGB(100, 20,  0)
+orangeIcon.Text = "–" ; orangeIcon.TextColor3 = Color3.fromRGB(100, 60,  0)
+greenIcon.Text  = "+" ; greenIcon.TextColor3  = Color3.fromRGB(0,   70, 10)
 
--- ðŸŸ¢ Hijau = Maximize/Resize
-local greenDot, greenBtn, greenIcon = makeDot("GreenDot", Color3.fromRGB(40, 201, 64), 3)
-greenIcon.Text = "+"
-greenIcon.TextColor3 = Color3.fromRGB(0, 70, 10)
+redBtn.MouseButton1Click:Connect(function()    self:ShowDestroyQ()  end)
+orangeBtn.MouseButton1Click:Connect(function() self:Minimaze()      end)
+greenBtn.MouseButton1Click:Connect(function()  self:ColumnWindow()  end)
 
--- âœ… Koneksikan ke fungsi yang sudah ada
-redBtn.MouseButton1Click:Connect(function()
-    self:ShowDestroyQ()
-end)
-
-orangeBtn.MouseButton1Click:Connect(function()
-    self:Minimaze()       -- fungsi minimize asli
-end)
-
-greenBtn.MouseButton1Click:Connect(function()
-    self:ColumnWindow()   -- fungsi maximize asli
-end)
-
--- Hover effect: semua dot tampilkan icon mereka saat mouse masuk area traffic light
 local hovered = false
-
 local function setHover(on)
     if hovered == on then return end
     hovered = on
-    local trans = on and 0 or 1
-    local tweenInfo = TweenInfo.new(0.12, Enum.EasingStyle.Quad)
-    TweenService:Create(redIcon,    tweenInfo, {TextTransparency = trans}):Play()
-    TweenService:Create(orangeIcon, tweenInfo, {TextTransparency = trans}):Play()
-    TweenService:Create(greenIcon,  tweenInfo, {TextTransparency = trans}):Play()
+    local t = on and 0 or 1
+    local ti = TweenInfo.new(0.12, Enum.EasingStyle.Quad)
+    TweenService:Create(redIcon,    ti, {TextTransparency = t}):Play()
+    TweenService:Create(orangeIcon, ti, {TextTransparency = t}):Play()
+    TweenService:Create(greenIcon,  ti, {TextTransparency = t}):Play()
 end
 
--- Hover on setiap dot
 for _, dot in ipairs({redDot, orangeDot, greenDot}) do
     dot.Btn.MouseEnter:Connect(function() setHover(true) end)
     dot.Btn.MouseLeave:Connect(function()
-        -- delay sedikit biar ga flicker saat pindah antar dot
         task.delay(0.05, function()
-            -- cek apakah masih di area mana pun
             local mouse = game:GetService("UserInputService"):GetMouseLocation()
             local abs = TrafficLight.AbsolutePosition
             local sz  = TrafficLight.AbsoluteSize
@@ -532,10 +503,9 @@ for _, dot in ipairs({redDot, orangeDot, greenDot}) do
     end)
 end
 
--- Simpan referensi ke self supaya SetTheme bisa update warna dot jika perlu
-self.close        = redDot       -- referensi lama dipertahankan (SetTheme pakai self.close)
-self.ImageButton  = orangeDot    -- referensi lama dipertahankan
-self.ImageButton_2 = greenDot    -- referensi lama dipertahankan
+self.close         = redDot
+self.ImageButton   = orangeDot
+self.ImageButton_2 = greenDot
 
 	self.Tabs = Instance.new("Frame")
 	self.Frame_2 = Instance.new("Frame")
